@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Image,
   Platform,
@@ -6,21 +6,25 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
-} from 'react-native';
-import { WebBrowser } from 'expo';
-import { Constants } from 'expo';
-
-import { MonoText } from '../components/StyledText';
+  View
+} from "react-native";
+import { WebBrowser } from "expo";
+import { Constants } from "expo";
+import { MonoText } from "../components/StyledText";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    header: null
   };
 
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.text}>Welcome Test App</Text>
+      </View>
+    );
+    {
+      /* <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
@@ -61,10 +65,11 @@ export default class HomeScreen extends React.Component {
             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
           </View>
         </View>
-      </View>
-    );
+      </View> */
+    }
   }
 
+  /*
   _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
       const learnMoreButton = (
@@ -97,13 +102,22 @@ export default class HomeScreen extends React.Component {
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
   };
+  */
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "steelblue",
+    justifyContent: "center",
+    alignItems: "center"
   },
+  text: {
+    color: "white",
+    fontSize: 25,
+    textAlign: "center"
+  }
+  /*
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -186,4 +200,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  */
 });

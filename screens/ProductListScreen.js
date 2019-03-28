@@ -1,111 +1,60 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  Text,
-  Platform
-} from 'react-native';
-import NavigationService from '../navigation/NavigationService';
+import React, { Component } from "react";
+import { View, FlatList, Image, TouchableOpacity, Text } from "react-native";
+import NavigationService from "../navigation/NavigationService";
+import Styles from "../assets/style/styles";
 
- export default class ProductListScreen extends Component {
-     state = {
-      dataSource: {},
-    };
-    static navigationOptions = {
-        title: 'Ürünler',
-      };
-  
+export default class ProductListScreen extends Component {
+  state = {
+    productListData: {}
+  };
+  static navigationOptions = {
+    title: "Ürünler"
+  };
+
   componentDidMount() {
-    var that = this;
     let items = Array.apply(null, Array(19)).map((v, i) => {
       return {
         id: i,
-        title: 'Bahçıvan Tam Yağlı Taze Eritme Tost Peyniri 700 G ' + i,
-      // src: 'http://placehold.it/200x200?text=' + (i + 1),
-      src: 'http://cdn.akakce.com/sutas/sutas-1-kg-suzme-peynir-z.jpg',
+        title: "Bahçıvan Tam Yağlı Taze Eritme Tost Peyniri 700 G " + i,
+        src: "http://cdn.akakce.com/sutas/sutas-1-kg-suzme-peynir-z.jpg"
       };
     });
-    that.setState({
-      //Setting the data source
-      dataSource: items,
+    this.setState({
+      productListData: items
     });
   }
   render() {
     return (
-      <View style={styles.MainContainer}>
+      <View style={Styles.productListContainer}>
         <FlatList
-          data={this.state.dataSource}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-            style={{
-                flex: 1 / 2,
-                flexDirection: 'column',
-                margin: 4,
-                height: 250,
-                backgroundColor: 'white',
-                borderRadius: 8
-              }}
-              onPress={() => {NavigationService.navigate('ProductDetail', { userName: 'root' });}}>
-              <View style={styles.productImageView}>
-                <Image
-                  style={{ flex: 1, height: undefined, width: undefined }}
-                  source={{ uri: item.src }}
-                  resizeMode="contain"
-                />
-              </View>
-              <View
-                style={{
-                  height: 70,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding:1,
-                  borderTopColor: '#EAEDED',
-                  borderTopWidth: 1,
-                }}>
-                <Text style={styles.tabBarInfoText}>{item.title}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          //Setting the number of column
+          data={this.state.productListData}
+          renderItem={this.renderProductListItems}
           numColumns={2}
-          keyExtractor={(item, index) => index}
+          keyExtractor={item => item.id}
         />
       </View>
     );
   }
-}
 
-const styles = StyleSheet.create({
-  MainContainer: {
-    flex: 1,
-    backgroundColor: '#EAEDED',
-  },
-  imageThumbnail: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
-  },
-  tabBarInfoText: {
-    fontSize: 13,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  productImageView:{
-    flex:1,
-    height: 180,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
-  }
-});
+  renderProductListItems = ({ item }) => {
+    return (
+      <TouchableOpacity
+        style={Styles.productListItemView}
+        onPress={() => {
+          NavigationService.navigate("ProductDetail", { userName: "root" });
+        }}
+      >
+        <View style={Styles.productListImageView}>
+          <Image
+            style={Styles.flexImage}
+            source={{ uri: item.src }}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={Styles.productListTextView}>
+          <Text style={Styles.productListItemTitle}>{item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+}
